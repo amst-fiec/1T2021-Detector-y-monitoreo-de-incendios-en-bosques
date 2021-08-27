@@ -50,7 +50,9 @@ public class Menu extends AppCompatActivity {
     ArrayList<String> lista=new ArrayList<>();
 
     private final static String Channel_id = "NOTIFICACION";
+    private final static String Channel_id2 = "NOTIFICACION2";
     private final static int Notificacion_Id = 0;
+    private final static int Notificacion_Id2 = 1;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -84,15 +86,20 @@ public class Menu extends AppCompatActivity {
                         }
                     }
                 });
+        if(dispositivos.getText().toString().equals("0")){
+            Menu.FireMissilesDialogFragment pruebaMenu = new Menu.FireMissilesDialogFragment();
+            pruebaMenu.showNow(getSupportFragmentManager(), "mensaje");
+        }
         hiloExisteIncendio();
+        hilobateriaagotada();
     }
 
     //Permite crear una notificacion, que le avisara al usuario
     //cuando haya un incendio
-    public void createNotification(String x, String y, String bosque){
+    public void createNotification(String x, String y, String bosque,String id){
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), Channel_id);
         builder.setSmallIcon(R.drawable.logo5);
-        builder.setContentTitle("Posible Incendio en el Bosque" + bosque);
+        builder.setContentTitle("El sensor " + id + " registra un posible Incendio en el Bosque" + bosque);
         builder.setContentText("En las latitud " + x + " y longitud " + y);
         builder.setColor(Color.BLUE);
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
@@ -112,6 +119,32 @@ public class Menu extends AppCompatActivity {
         NotificationChannel notificationChannel = new NotificationChannel(Channel_id, name, NotificationManager.IMPORTANCE_DEFAULT);
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.createNotificationChannel(notificationChannel);
+    }
+
+    //Se crea un canal, para poder visualizar las notificaciones
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void createNotificationChannel2() {
+        CharSequence name = "Notification2";
+        NotificationChannel notificationChannel = new NotificationChannel(Channel_id2, name, NotificationManager.IMPORTANCE_DEFAULT);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.createNotificationChannel(notificationChannel);
+    }
+
+    //Permite crear una notificacion, que le avisara al usuario
+    //cuando haya un incendio
+    public void createNotificationBateria(String id){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), Channel_id);
+        builder.setSmallIcon(R.drawable.logo5);
+        builder.setContentTitle("El sensor " + id + " presenta un nivel de bateria baja");
+        builder.setContentText("La bateria se esta agotando");
+        builder.setColor(Color.BLUE);
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        builder.setLights(Color.GREEN, 1000, 1000);
+        builder.setVibrate(new long[]{1000,1000});
+        builder.setDefaults(Notification.DEFAULT_SOUND);
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+        notificationManagerCompat.notify(Notificacion_Id2, builder.build());
+
     }
 
     //Funcion para el metodo del boton de registrar dispositivo,
@@ -172,8 +205,8 @@ public class Menu extends AppCompatActivity {
 
 
     //funcion que permite determinar de que existe un incendio
-    public boolean existeIncendio(float humedad, float temperatura, float nivelHumo, String fuego){
-        if(nivelHumo<500 && temperatura > 45 && humedad >30 && fuego.equals("si")){
+    public boolean existeIncendio(float humedad, float temperatura, float nivelHumo){
+        if(nivelHumo<500 && temperatura > 45 && humedad >30){
             return true;
         }else{
             return false;
@@ -187,7 +220,7 @@ public class Menu extends AppCompatActivity {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the Builder class for convenient dialog construction
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage(R.string.dialog_fire_missiles)
+            builder.setMessage(R.string.sin_dispositivo)
                     .setPositiveButton(R.string.fire, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                         }
@@ -220,6 +253,7 @@ public class Menu extends AppCompatActivity {
                                                     String latitud = document.getData().get("latitud").toString();
                                                     String longitud = document.getData().get("longitud").toString();
                                                     String bosque = document.getData().get("nombre_bosque").toString();
+                                                    String idDispositivo = document.getData().get("id").toString();
 
                                                     final FirebaseDatabase database = FirebaseDatabase.getInstance();
                                                     DatabaseReference ref = database.getReference().child("kitDeSensores").child(id);
@@ -230,19 +264,76 @@ public class Menu extends AppCompatActivity {
 
                                                             kitSensoresDatos post = dataSnapshot.getValue(kitSensoresDatos.class);
                                                             if(post !=null){
-                                                                int temperatura = (int) post.getTemperatura();
-                                                                String temperaturaSN;
-                                                                if(temperatura == 0){
-                                                                    temperaturaSN = "no";
-                                                                }else{
-                                                                    temperaturaSN = "si";
-                                                                }
                                                                 boolean condicion = existeIncendio(Float.parseFloat(String.valueOf(post.getHumedad())),
                                                                         Float.parseFloat(String.valueOf(post.getTemperatura())),
-                                                                        Float.parseFloat(String.valueOf(post.getHumo())), temperaturaSN);
+                                                                        Float.parseFloat(String.valueOf(post.getGas())));
                                                                    if(condicion == true){
-                                                                    createNotification(latitud, longitud, bosque);
+                                                                    createNotification(latitud, longitud, bosque, idDispositivo);
                                                                     createNotificationChannel();
+                                                                }
+                                                            }
+                                                        }
+                                                        @Override
+                                                        public void onCancelled(DatabaseError databaseError) {
+
+                                                        }
+                                                    });
+
+                                                    try{
+                                                        Thread.sleep(100);
+                                                    }catch (InterruptedException e){
+                                                    }
+                                                }
+                                            } else {
+                                            }
+                                        }
+                                    });
+
+                        }
+                    });
+
+                    try{
+                        Thread.sleep(1000);
+                    }catch (InterruptedException e){
+                    }
+                }
+
+            }
+
+        }).start();
+    }
+
+    private void hilobateriaagotada(){
+        new Thread (new Runnable(){
+            @Override
+            public void run(){
+
+                while(true){
+                    runOnUiThread(new Runnable (){
+                        @Override
+                        public void run(){
+                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                            db.collection("kitdesensores")
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    String idDispositivo = document.getData().get("id").toString();
+                                                    String id = document.getId();
+                                                    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                                    DatabaseReference ref = database.getReference().child("kitDeSensores").child(id);
+                                                    ref.addValueEventListener(new ValueEventListener() {
+                                                        @RequiresApi(api = Build.VERSION_CODES.O)
+                                                        @Override
+                                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                                            kitSensoresDatos post = dataSnapshot.getValue(kitSensoresDatos.class);
+                                                            if(post !=null){
+                                                                int bateria = (int) post.getbateria();
+                                                                if(bateria < 30){
+                                                                    createNotificationBateria(idDispositivo);
+                                                                    createNotificationChannel2();
                                                                 }
                                                             }
                                                         }

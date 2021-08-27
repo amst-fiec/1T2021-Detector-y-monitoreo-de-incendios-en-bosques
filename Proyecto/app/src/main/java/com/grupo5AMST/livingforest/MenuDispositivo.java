@@ -1,16 +1,20 @@
 package com.grupo5AMST.livingforest;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.DialogFragment;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -62,6 +66,7 @@ public class MenuDispositivo extends AppCompatActivity {
 
         leerBaseDatos();
         cambiarDato();
+
     }
 
     //Funcion que permitira enviar datos a la base de datos,
@@ -145,6 +150,7 @@ public class MenuDispositivo extends AppCompatActivity {
                         temperatura.setText("El sensor no tiene datos para mostrar");
                         humedad.setText("El sensor no tiene datos para mostrar");
                         humo.setText("El sensor no tiene datos para mostrar");
+                        Log.d("Humedad obtenidad", String.valueOf(humo));
                     }else{
                         String fuegoExiste;
                         if(String.valueOf(post.getFuego()).equals("0")){
@@ -154,7 +160,7 @@ public class MenuDispositivo extends AppCompatActivity {
                         }
                         fuego.setText(fuegoExiste);
                         temperatura.setText(String.valueOf(post.getTemperatura()) + " °C");
-                        humo.setText(String.valueOf(post.getHumo()) + " ppm");
+                        humo.setText(String.valueOf(post.getGas()) + " ppm");
                         humedad.setText(String.valueOf(post.getHumedad()) + " %");
                     }
                 }
@@ -239,5 +245,36 @@ public class MenuDispositivo extends AppCompatActivity {
         }).start();
     }
 
+    //funcion que permite determinar de que existe un incendio
+    public boolean existeIncendio(float humedad, float temperatura, float nivelHumo, String fuego){
+        if(nivelHumo<500 && temperatura > 45 && humedad >30 && fuego.equals("Si")){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+
+    public void llamarBomberos(View view){
+        Float humedadFloat = Float.parseFloat(humedad.getText().toString().replace(" %",""));
+        Float temperaturaFloat = Float.parseFloat(temperatura.getText().toString().replace(" °C",""));
+        Float humoFloat = Float.parseFloat(humo.getText().toString().replace(" ppm",""));
+
+        boolean condicion = existeIncendio(humedadFloat, temperaturaFloat, humoFloat, fuego.getText().toString());
+        if(condicion == true){
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.parse("tel:0994558237"));
+            if (ActivityCompat.checkSelfPermission(MenuDispositivo.this,
+                    Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            startActivity(callIntent);
+        }else{
+            Toast toast = Toast.makeText(getApplicationContext(), "No existe incendio que reportar", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+    }
 
 }

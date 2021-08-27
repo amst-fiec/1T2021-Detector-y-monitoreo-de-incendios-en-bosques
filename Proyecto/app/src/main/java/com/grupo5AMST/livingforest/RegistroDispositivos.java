@@ -136,7 +136,7 @@ public class RegistroDispositivos extends AppCompatActivity {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the Builder class for convenient dialog construction
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage(R.string.dialog_fire_missiles)
+            builder.setMessage(R.string.bateria_baja)
                     .setPositiveButton(R.string.fire, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                         }

@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Living Forest</string>
     <string name="dialog_fire_missiles">Error al iniciar sesion</string>
+    <string name="bateria_baja">Bateria Baja</string>
     <string name="sin_conexion">No tienes conexion a internet</string>
+    <string name="sin_dispositivo">Debes tener funcionando al menos un dispositivo</string>
     <string name="fire">Aceptar</string>
     <string name="cancel">Cancelar</string>
 </resources>
