@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FAFAFA"
+    android:backgroundTint="#FFFFFF"
     tools:context=".Menu">
 
     <TextView
@@ -41,7 +43,7 @@
                 android:layout_height="50dp" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/dispositivosId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -50,13 +52,13 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/numero"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="n"
+                android:text="Cargando Datos"
                 android:textColor="#090909"
-                android:textSize="44dp" />
+                android:textSize="24sp" />
 
             <Space
                 android:layout_width="match_parent"

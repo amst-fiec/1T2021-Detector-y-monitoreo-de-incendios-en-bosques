@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Living Forest</string>
+    <string name="dialog_fire_missiles">Error al iniciar sesion</string>
+    <string name="sin_conexion">No tienes conexion a internet</string>
+    <string name="fire">Aceptar</string>
+    <string name="cancel">Cancelar</string>
 </resources>

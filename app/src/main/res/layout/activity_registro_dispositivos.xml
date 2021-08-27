@@ -23,7 +23,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/numero"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
@@ -66,63 +66,45 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textViewRegCedula"
-                    android:layout_width="75dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="40dp"
-                    android:text="MAC"
-                    android:textColor="#000000"
-                    android:textSize="14dp"
-                    android:layout_marginLeft="30dp" />
-
-                <EditText
-                    android:id="@+id/editTextRegCedula"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="30dp"
-                    android:ems="10"
-                    android:hint="00:00:00:00:FF:FF:FF:FF"
-                    android:inputType="number"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="30dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
                     android:id="@+id/textViewNombre"
                     android:layout_width="75dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="40dp"
-                    android:text="Tipo:"
+                    android:text="Sensores"
                     android:textColor="#000000"
-                    android:textSize="14dp"
-                    android:layout_marginLeft="30dp" />
+                    android:textSize="14dp" />
 
-                <RadioGroup
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <RadioButton
-                        android:id="@+id/radioButton"
+                        android:id="@+id/temperaturaIdRegistro"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Temperatura" />
 
                     <RadioButton
-                        android:id="@+id/radioButton2"
+                        android:id="@+id/humedadIdRegistro"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Humedad" />
-                </RadioGroup>
+
+                    <RadioButton
+                        android:id="@+id/fuegoIdRegistro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fuego" />
+
+                    <RadioButton
+                        android:id="@+id/humoIdRegistro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Humo" />
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -132,7 +114,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textViewApellido"
+                    android:id="@+id/bosque"
                     android:layout_width="75dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="30dp"
@@ -143,14 +125,14 @@
                     android:layout_marginLeft="30dp" />
 
                 <EditText
-                    android:id="@+id/editTextRegApellido"
+                    android:id="@+id/bosqueId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="30dp"
                     android:ems="10"
-                    android:hint="bosque"
+                    android:hint="Bosque"
                     android:inputType="textPersonName"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="30dp" />
@@ -174,15 +156,15 @@
                     android:layout_marginLeft="30dp" />
 
                 <EditText
-                    android:id="@+id/editTextRegCorreo"
+                    android:id="@+id/latitudId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="30dp"
                     android:ems="10"
-                    android:hint="latitud"
-                    android:inputType="textEmailAddress"
+                    android:hint="Latitud"
+                    android:inputType="number"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="30dp" />
             </LinearLayout>
@@ -204,7 +186,7 @@
                     android:layout_marginLeft="30dp" />
 
                 <EditText
-                    android:id="@+id/editTextRegPasss"
+                    android:id="@+id/longitudId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -212,8 +194,8 @@
                     android:layout_marginEnd="30dp"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="longitud"
-                    android:inputType="textPassword"
+                    android:hint="Longitud"
+                    android:inputType="number"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="30dp" />
 
@@ -229,26 +211,56 @@
                     android:layout_width="75dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="30dp"
-                    android:text="Repetir contraseña:"
+                    android:text="Descripcion"
                     android:textColor="#000000"
-                    android:textSize="14dp"
-                    android:layout_marginLeft="30dp" />
+                    android:textSize="14dp" />
 
                 <EditText
-                    android:id="@+id/editTextRegPass"
+                    android:id="@+id/descripcionId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="30dp"
                     android:layout_weight="1"
-                    android:hint="descripción"
-                    android:inputType="textPassword"
+                    android:hint="Descripción"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="30dp" />
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/codigoId"
+                    android:layout_width="75dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="40dp"
+                    android:text="Codigo"
+                    android:textColor="#000000"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/codigoIdUsuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginRight="30dp"
+                    android:ems="10"
+                    android:hint="Codigo"
+                    android:inputType="textPersonName" />
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"

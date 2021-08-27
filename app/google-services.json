@@ -1,1 +1,85 @@
-{"installed":{"client_id":"754180550286-r4314nc6otclol9tl6l6p7hq3v89s7le.apps.googleusercontent.com","project_id":"active-mountain-320513","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","redirect_uris":["urn:ietf:wg:oauth:2.0:oob","http://localhost"]}}
+{
+  "project_info": {
+    "project_number": "1073870707674",
+    "firebase_url": "https://amstdeteccionincendios-default-rtdb.firebaseio.com",
+    "project_id": "amstdeteccionincendios",
+    "storage_bucket": "amstdeteccionincendios.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073870707674:android:ceb6ce2cad8169bf90fee3",
+        "android_client_info": {
+          "package_name": "com.example.livingforest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1073870707674-qsi28buqq7r53uma2ag3vuq63ek4pfjk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.livingforest",
+            "certificate_hash": "2d0fdf52ecdd815cda31168d3c020dbe15957f04"
+          }
+        },
+        {
+          "client_id": "1073870707674-4r154evgoqohaa269m4hvq5uejh7t04m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoCVrRZPYrlqeQIH-m3Tc28QpegYkl6mA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073870707674-4r154evgoqohaa269m4hvq5uejh7t04m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073870707674:android:6f3e9e0442cbc7a890fee3",
+        "android_client_info": {
+          "package_name": "com.grupo5AMST.livingforest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1073870707674-uh659nq2tvmi73efatl5u219sto10b8f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.grupo5AMST.livingforest",
+            "certificate_hash": "2d0fdf52ecdd815cda31168d3c020dbe15957f04"
+          }
+        },
+        {
+          "client_id": "1073870707674-4r154evgoqohaa269m4hvq5uejh7t04m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoCVrRZPYrlqeQIH-m3Tc28QpegYkl6mA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073870707674-4r154evgoqohaa269m4hvq5uejh7t04m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
